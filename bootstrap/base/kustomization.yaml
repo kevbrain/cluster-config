@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
 - sealed-secrets-namespace.yaml
-- sealed-secrets-secret.yaml
+#- sealed-secrets-secret.yaml
