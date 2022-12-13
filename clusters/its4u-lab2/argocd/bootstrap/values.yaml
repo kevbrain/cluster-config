@@ -13,12 +13,12 @@ default:
 
 applications:
 
- banner:
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-   source:
-     path: clusters/its4u-lab2/apps/banner/base
-
+# banner:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#   source:
+#     path: clusters/its4u-lab2/apps/banner/base
+#
 
 
 # alertmanager:
