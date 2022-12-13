@@ -16,7 +16,6 @@ applications:
  banner:
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
-     argocd.argoproj.io/sync-wave: '11'
    source:
      path: clusters/its4u-lab2/apps/banner/base
 
