@@ -8,7 +8,7 @@ default:
       namespace: openshift-gitops
       server: https://kubernetes.default.svc
     source:
-      repoURL: https://github.com/gnunn-gitops/cluster-config.git
+      repoURL: https://github.com/kevbrain/cluster-config.git
       targetRevision: HEAD
 
 projects:
@@ -20,10 +20,10 @@ projects:
     description: Project for overall cluster configuration
     namespace: openshift-gitops
     sourceRepos:
-    - https://github.com/gnunn-gitops/cluster-config
-    - https://github.com/redhat-cop/gitops-catalog
-    - https://github.com/gnunn1/gitops-catalog
-    - https://github.com/gnunn-gitops/acm-hub-bootstrap
+    - https://github.com/kevbrain/cluster-config
+    - https://github.com/kevbrain/gitops-catalog
+    - https://github.com/kevbrain/gitops-catalog
+    - https://github.com/kevbrain/acm-hub-bootstrap
     destinations: |
       - namespace: '*'
         server: https://kubernetes.default.svc
@@ -34,85 +34,85 @@ projects:
 
 applications:
 
-  camel-k-operator:
-    annotations:
-      argocd.argoproj.io/sync-wave: "21"
-    destination:
-      namespace: openshift-operators
-    source:
-      path: components/apps/camel-k-operator/base
-
-  compliance-operator:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '21'
-    destination:
-      namespace: openshift-compliance
-    source:
-      path: compliance-operator/aggregate/scheduled
-      repoURL: https://github.com/redhat-cop/gitops-catalog
-      targetRevision: HEAD
-
-  container-security:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '21'
-    destination:
-      namespace: openshift-operators
-    source:
-      path: container-security-operator/overlays/stable-3.7
-      repoURL: https://github.com/redhat-cop/gitops-catalog
-      targetRevision: HEAD
-
-  dev-tools:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '31'
-    destination:
-      namespace: dev-tools
-    source:
-      path: components/apps/dev-tools/overlays/default
-
-  groups-and-membership:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '11'
-    source:
-      path: components/configs/groups-and-membership/overlays/default
-
-  helm-repos:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '11'
-    source:
-      path: components/configs/helm-repos/base
-
-  pipeline-operator:
-    annotations:
-      argocd.argoproj.io/sync-wave: "21"
-    destination:
-      namespace: openshift-operators
-    source:
-      path: components/apps/pipelines-operator/overlays/chains
-    syncPolicyRetry:
-      limit: 5
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 3m
-
-  sealed-secrets:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '1'
-    destination:
-      namespace: sealed-secrets
-    source:
-      path: components/apps/sealed-secrets-operator/overlays/default
-
-  tekton-cluster-tasks:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '41'
-    source:
-      path: components/apps/tekton-cluster-tasks/base
+# camel-k-operator:
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "21"
+#   destination:
+#     namespace: openshift-operators
+#   source:
+#     path: components/apps/camel-k-operator/base
+#
+# compliance-operator:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   destination:
+#     namespace: openshift-compliance
+#   source:
+#     path: compliance-operator/aggregate/scheduled
+#     repoURL: https://github.com/redhat-cop/gitops-catalog
+#     targetRevision: HEAD
+#
+# container-security:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   destination:
+#     namespace: openshift-operators
+#   source:
+#     path: container-security-operator/overlays/stable-3.7
+#     repoURL: https://github.com/redhat-cop/gitops-catalog
+#     targetRevision: HEAD
+#
+# dev-tools:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '31'
+#   destination:
+#     namespace: dev-tools
+#   source:
+#     path: components/apps/dev-tools/overlays/default
+#
+# groups-and-membership:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '11'
+#   source:
+#     path: components/configs/groups-and-membership/overlays/default
+#
+# helm-repos:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '11'
+#   source:
+#     path: components/configs/helm-repos/base
+#
+# pipeline-operator:
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "21"
+#   destination:
+#     namespace: openshift-operators
+#   source:
+#     path: components/apps/pipelines-operator/overlays/chains
+#   syncPolicyRetry:
+#     limit: 5
+#     backoff:
+#       duration: 5s
+#       factor: 2
+#       maxDuration: 3m
+#
+# sealed-secrets:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '1'
+#   destination:
+#     namespace: sealed-secrets
+#   source:
+#     path: components/apps/sealed-secrets-operator/overlays/default
+#
+# tekton-cluster-tasks:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '41'
+#   source:
+#     path: components/apps/tekton-cluster-tasks/base

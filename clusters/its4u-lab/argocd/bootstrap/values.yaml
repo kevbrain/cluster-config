@@ -1,0 +1,23 @@
+default:
+  app:
+    enabled: true
+    enableAutoSync: true
+    autoSyncPrune: false
+    project: cluster-config
+    destination:
+      namespace: openshift-gitops
+      server: https://kubernetes.default.svc
+    source:
+      repoURL: https://github.com/kevbrain/cluster-config.git
+      targetRevision: HEAD
+
+applications:
+
+  banner:
+    annotations:
+      argocd.argoproj.io/compare-options: IgnoreExtraneous
+      argocd.argoproj.io/sync-wave: '11'
+    source:
+      path: clusters/its4u-lab2/apps/banner/base
+
+ 
