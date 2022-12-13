@@ -18,6 +18,6 @@ applications:
       argocd.argoproj.io/compare-options: IgnoreExtraneous
       argocd.argoproj.io/sync-wave: '11'
     source:
-      path: clusters/its4u-lab2/apps/banner/base
+      path: clusters/its4u-lab/apps/banner/base
 
  

@@ -34,11 +34,7 @@ projects:
 
 applications:
 
- banner:
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-   source:
-     path: clusters/{{fromClusterClaim "gitops"}}/apps/banner/base
+
 
 #web-terminal:
 #  project: cluster-config
