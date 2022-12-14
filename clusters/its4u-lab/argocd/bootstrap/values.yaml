@@ -12,13 +12,12 @@ default:
       targetRevision: HEAD
 
 applications:
-
-  banner:
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-wave: '11'
-    source:
-      path: clusters/its4u-lab/apps/banner/base
+ 
+ banner:
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+   source:
+     path: clusters/its4u-lab/apps/banner/base
 
  web-terminal:
    project: cluster-config
