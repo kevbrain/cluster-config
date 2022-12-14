@@ -41,4 +41,4 @@ applications:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
      argocd.argoproj.io/sync-wave: '21'
    source:
-     path: components/apps/dev-tools/default
+     path: components/apps/dev-tools/overlays/default
