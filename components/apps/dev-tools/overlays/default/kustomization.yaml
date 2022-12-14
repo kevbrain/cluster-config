@@ -5,10 +5,10 @@ namespace: dev-tools
 
 bases:
 # Nexus
-- https://github.com/redhat-cop/gitops-catalog/nexus2/base
+- https://github.com/kevbrain/gitops-catalog/nexus2/base
 # Sonarqube
 - sonarqube-admin-secret.yaml
-- https://github.com/redhat-cop/gitops-catalog/sonarqube8/base
+- https://github.com/kevbrain/gitops-catalog/sonarqube8/base
 - configure-sonarqube-job.yaml
 
 resources:
