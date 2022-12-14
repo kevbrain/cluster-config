@@ -19,13 +19,6 @@ applications:
    source:
      path: clusters/its4u-lab2/apps/banner/base
 
- web-terminal:
-   project: cluster-config
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-     argocd.argoproj.io/sync-wave: '21'
-   source:
-     path: components/apps/web-terminal-operator/base
 
  pipelines-operator:
    project: cluster-config
@@ -35,13 +28,6 @@ applications:
    source:
      path: components/apps/pipelines-operator/base
 
- dev-tools:
-   project: cluster-config
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-     argocd.argoproj.io/sync-wave: '21'
-   source:
-     path: components/apps/dev-tools/overlays/default
 # alertmanager:
 #   annotations:
 #     argocd.argoproj.io/compare-options: IgnoreExtraneous
