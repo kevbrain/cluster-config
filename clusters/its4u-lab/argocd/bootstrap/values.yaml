@@ -27,3 +27,10 @@ applications:
    source:
      path: components/apps/web-terminal-operator/base
  
+ pipelines-operator:
+   project: cluster-config
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+     argocd.argoproj.io/sync-wave: '21'
+   source:
+     path: components/apps/pipelines-operator/base
