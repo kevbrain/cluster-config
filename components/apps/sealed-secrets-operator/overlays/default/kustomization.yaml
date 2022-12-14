@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: sealed-secrets
 
 bases:
-- github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/base
+- github.com/kevbrain/gitops-catalog/sealed-secrets-operator/base
 
 resources:
 - role-anyuid.yaml

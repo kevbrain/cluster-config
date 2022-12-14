@@ -35,6 +35,14 @@ applications:
    source:
      path: components/apps/pipelines-operator/base
 
+ sealed-secrets:
+   project: cluster-config
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+     argocd.argoproj.io/sync-wave: '20'
+   source:
+     path: components/apps/sealed-secrets-operator/overlays/default
+
  dev-tools:
    project: cluster-config
    annotations:
