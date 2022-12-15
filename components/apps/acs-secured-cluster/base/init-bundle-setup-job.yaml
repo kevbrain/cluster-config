@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync  
+    argocd.argoproj.io/sync-wave: "2" 
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  labels:
+    run: init-bundle-setup-job
+  name: init-bundle-setup-job
+  namespace: stackrox
+spec:
+  template:
+    spec:
+      activeDeadlineSeconds: 600
+      containers:
+        - image: registry.redhat.io/openshift4/ose-tools-rhel8:v4.10
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -e
+              export HOME=/tmp/init-bundle-setup-job
+              mkdir $HOME
+              cd $HOME              
+              curl -O https://mirror.openshift.com/pub/rhacs/assets/latest/bin/Linux/roxctl
+              chmod +x roxctl			  
+              acs_credentials="sxww5LqdPQTq5wZNrDa2a8oRT"
+              export ROX_CENTRAL_ADDRESS="central-rhacs-operator.apps.ocp-lab2.its4u.eu:443"   
+              secured_cluster_name=$(oc -n stackrox get secret acs-secured-cluster-name-secret -o go-template='{{index .data "acs-cluster-name" | base64decode}}')           
+              export ROX_API_TOKEN=$(curl -sk -u "admin:$acs_credentials" "https://$ROX_CENTRAL_ADDRESS/v1/apitokens/generate" -d '{"name":"token name", "role": "Admin"}' | jq -r '.token')
+              ./roxctl --insecure-skip-tls-verify -e "$ROX_CENTRAL_ADDRESS" central init-bundles generate $secured_cluster_name --output-secrets cluster_init_bundle.yaml
+              oc apply -f cluster_init_bundle.yaml -n stackrox
+          imagePullPolicy: IfNotPresent
+          name: init-bundle-setup-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: argocd
+      serviceAccountName: argocd
+      terminationGracePeriodSeconds: 30
