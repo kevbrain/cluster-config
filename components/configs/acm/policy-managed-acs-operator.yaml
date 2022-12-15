@@ -105,7 +105,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: acs-secured-cluster-application-present
+          name: acs-secured-cluster-bootstrap-application-present
         spec:
           object-templates:
             - complianceType: musthave
