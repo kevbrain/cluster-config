@@ -1,3 +1,4 @@
 resources:
 - argocd-rbac.yaml
 - init-bundle-setup-job.yaml
+- secured-cluster.yaml
