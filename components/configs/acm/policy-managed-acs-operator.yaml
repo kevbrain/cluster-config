@@ -130,6 +130,113 @@ spec:
                       selfHeal: true
           remediationAction: inform
           severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acs-secured-cluster-service-present
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: platform.stackrox.io/v1alpha1
+                kind: SecuredCluster
+                metadata:
+                  name: stackrox-secured-cluster-services
+                  namespace: stackrox
+                spec:
+                  admissionControl:
+                    nodeSelector:
+                      node-role.kubernetes.io/infra: ''
+                    listenOnUpdates: true
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 500Mi
+                      requests:
+                        cpu: 50m
+                        memory: 100Mi
+                    bypass: BreakGlassAnnotation
+                    contactImageScanners: DoNotScanInline
+                    listenOnCreates: true
+                    tolerations:
+                      - effect: NoSchedule
+                        key: infra
+                        value: reserved
+                      - effect: NoExecute
+                        key: infra
+                        value: reserved
+                    timeoutSeconds: 20
+                    listenOnEvents: true
+                  auditLogs:
+                    collection: Auto
+                  centralEndpoint: 'central-rhacs-operator.apps.ocp-lab2.its4u.eu:443'
+                  clusterName: '{{ fromClusterClaim "gitops" }}'
+                  perNode:
+                    collector:
+                      collection: KernelModule
+                      imageFlavor: Regular
+                      resources:
+                        limits:
+                          cpu: 750m
+                          memory: 1Gi
+                        requests:
+                          cpu: 50m
+                          memory: 320Mi
+                    taintToleration: TolerateTaints
+                  scanner:
+                    analyzer:
+                      nodeSelector:
+                        node-role.kubernetes.io/infra: ''
+                      resources:
+                        limits:
+                          cpu: '5'
+                          memory: 8Gi
+                        requests:
+                          cpu: '1.2'
+                          memory: 2700Mi
+                      scaling:
+                        autoScaling: Enabled
+                        maxReplicas: 5
+                        minReplicas: 2
+                        replicas: 3
+                      tolerations:
+                        - effect: NoSchedule
+                          key: infra
+                          value: 
+                        - effect: NoExecute
+                          key: infra
+                          value: 
+                    db:
+                      nodeSelector:
+                        node-role.kubernetes.io/infra: ''
+                      tolerations:
+                        - effect: NoExecute
+                          key: infra
+                          value: 
+                        - effect: NoSchedule
+                          key: infra
+                          value: 
+                    scannerComponent: AutoSense
+                  sensor:
+                    nodeSelector:
+                      node-role.kubernetes.io/infra: ''
+                    resources:
+                      limits:
+                        cpu: '2'
+                        memory: 4Gi
+                      requests:
+                        cpu: '1'
+                        memory: 1Gi
+                    tolerations:
+                      - effect: NoSchedule
+                        key: infra
+                        value: 
+                      - effect: NoExecute
+                        key: infra
+                        value: 
+          remediationAction: inform
+          severity: high
   remediationAction: enforce
 ---
 apiVersion: apps.open-cluster-management.io/v1

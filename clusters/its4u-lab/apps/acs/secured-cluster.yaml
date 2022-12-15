@@ -32,7 +32,8 @@ spec:
     listenOnEvents: true
   auditLogs:
     collection: Auto
-  clusterName: OCNP2
+  centralEndpoint: 'central-rhacs-operator.apps.ocp-lab2.its4u.eu:443'
+  clusterName: local-cluster
   perNode:
     collector:
       collection: KernelModule
