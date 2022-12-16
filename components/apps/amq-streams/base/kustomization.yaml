@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - subscription.yaml
 - namespace.yaml
-- kafkacluster.yaml
+
