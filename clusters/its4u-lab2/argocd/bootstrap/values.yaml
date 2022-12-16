@@ -28,12 +28,12 @@ applications:
    source:
      path: components/apps/pipelines-operator/base
 
-amq-streams:
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
-  source:
-    path: components/apps/amq-streams/base
-
+ amq-streams:
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+   source:
+     path: components/apps/amq-streams/base
+ 
 # alertmanager:
 #   annotations:
 #     argocd.argoproj.io/compare-options: IgnoreExtraneous
