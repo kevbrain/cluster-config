@@ -27,7 +27,7 @@ applications:
    source:
      path: components/apps/pipelines-operator/base
 
- banner:
+ amq-streams:
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
    source:
