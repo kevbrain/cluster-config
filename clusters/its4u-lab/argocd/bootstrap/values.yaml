@@ -27,12 +27,8 @@ applications:
    source:
      path: components/apps/pipelines-operator/base
 
- sealed-secrets:
-   project: cluster-config
+ banner:
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
-     argocd.argoproj.io/sync-wave: '20'
    source:
-     path: components/apps/sealed-secrets-operator/overlays/default
-
-
+     path: components/apps/amq-streams/base
