@@ -1,0 +1,9 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: kafka
+spec:
+  finalizers:
+    - kubernetes
+status:
+  phase: Active
