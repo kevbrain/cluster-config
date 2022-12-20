@@ -1,0 +1,132 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-managed-patch-operator
+  namespace: openshift-gitops
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, CA-2
+      Security Assessments, CA-7 Continuous Monitoring
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-ns
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: patch-operator
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-subscription
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: patch-operator
+                  namespace: patch-operator
+                spec:
+                  name: patch-operator
+                  channel: alpha
+                  installPlanApproval: Automatic
+                  source: community-operators
+                  sourceNamespace: openshift-marketplace
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-group
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1
+                kind: OperatorGroup
+                metadata:
+                  generateName: patch-operator-
+                  name: patch-operator-8nm99
+                  namespace: patch-operator
+                spec:
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: rolebinding-patch-operator
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                kind: ClusterRoleBinding
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: patch-admin-cluster
+                subjects:
+                  - kind: ServiceAccount
+                    name: default
+                    namespace: patch-operator
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: ClusterRole
+                  name: cluster-admin
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-cluster-present
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: redhatcop.redhat.io/v1alpha1
+                kind: Patch
+                metadata:
+                  name: cluster-patchs
+                  namespace: patch-operator
+                spec:
+                  patches:
+                    argocd-operator-patch:
+                      patchTemplate: |
+                        spec:
+                          server:
+                            insecure: true
+                          kustomizeBuildOptions: '--enable-helm'
+                      patchType: application/merge-patch+json
+                      targetObjectRef:
+                        apiVersion: argoproj.io/v1alpha1
+                        kind: ArgoCD
+                        name: openshift-gitops
+                        namespace: openshift-gitops
+  remediationAction: enforce
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-managed-patch-operator-placement-binding
+  namespace: openshift-gitops
+placementRef:
+  name: placement-policy-gitops
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: policy-managed-patch-operator
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
