@@ -13,6 +13,12 @@ default:
 
 applications:
 
+ auth-branding:
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+   source:
+     path: clusters/its4u-lab2/apps/its4u-auth/base
+
  banner:
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
