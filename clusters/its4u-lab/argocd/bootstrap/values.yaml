@@ -25,13 +25,6 @@ applications:
    source:
      path: clusters/its4u-lab/apps/banner/base
  
- pipelines-operator:
-   project: cluster-config
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-     argocd.argoproj.io/sync-wave: '21'
-   source:
-     path: components/apps/pipelines-operator/base
 
  amq-streams:
    annotations:
