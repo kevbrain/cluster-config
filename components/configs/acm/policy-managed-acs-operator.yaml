@@ -87,6 +87,25 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
+          name: acs-operator-status
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: ClusterServiceVersion
+                metadata:
+                  namespace: rhacs-operator
+                spec:
+                  displayName: Advanced Cluster Security for Kubernetes
+                status:
+                  phase: Succeeded
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
           name: acs-secured-cluster-name-secret
         spec:
           object-templates:

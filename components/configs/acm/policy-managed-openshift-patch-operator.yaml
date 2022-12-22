@@ -115,6 +115,25 @@ spec:
                         kind: ArgoCD
                         name: openshift-gitops
                         namespace: openshift-gitops
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-status
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: ClusterServiceVersion
+                metadata:
+                  namespace: patch-operator
+                spec:
+                  displayName: Patch Operator
+                status:
+                  phase: Succeeded
+          remediationAction: inform
+          severity: high
   remediationAction: enforce
 ---
 apiVersion: policy.open-cluster-management.io/v1

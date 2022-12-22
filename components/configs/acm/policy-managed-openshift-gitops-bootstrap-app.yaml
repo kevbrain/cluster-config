@@ -52,6 +52,25 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
+          name: gitops-operator-status
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: ClusterServiceVersion
+                metadata:
+                  namespace: openshift-operators
+                spec:
+                  displayName: Red Hat OpenShift GitOps
+                status:
+                  phase: Succeeded
+          remediationAction: inform
+          severity: high
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
           name: cluster-config-bootstrap-application-present
         spec:
           object-templates:
