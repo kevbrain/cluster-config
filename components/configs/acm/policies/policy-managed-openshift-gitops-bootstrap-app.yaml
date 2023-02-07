@@ -2,7 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-managed-gitops-operator
-  namespace: openshift-gitops
+  namespace: policies
   annotations:
     policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, CA-2
@@ -71,6 +71,34 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
+          name: patch-cluster-present
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: redhatcop.redhat.io/v1alpha1
+                kind: Patch
+                metadata:
+                  name: cluster-patchs
+                  namespace: patch-operator
+                spec:
+                  patches:
+                    argocd-operator-patch:
+                      patchTemplate: |
+                        spec:
+                          server:
+                            insecure: true
+                          kustomizeBuildOptions: '--enable-helm'
+                      patchType: application/merge-patch+json
+                      targetObjectRef:
+                        apiVersion: argoproj.io/v1alpha1
+                        kind: ArgoCD
+                        name: openshift-gitops
+                        namespace: openshift-gitops
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
           name: cluster-config-bootstrap-application-present
         spec:
           object-templates:
@@ -97,32 +125,4 @@ spec:
           remediationAction: inform
           severity: high
   remediationAction: enforce
----
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
-metadata:
-  name: placement-policy-gitops
-  namespace: openshift-gitops
-spec:
-  clusterConditions:
-    - status: "True"
-      type: ManagedClusterConditionAvailable
-  clusterSelector:
-    matchExpressions:
-      - key: gitops
-        operator: Exists
-        values: []
----
-apiVersion: policy.open-cluster-management.io/v1
-kind: PlacementBinding
-metadata:
-  name: policy-managed-openshift-gitops-operator-placement-binding
-  namespace: openshift-gitops
-placementRef:
-  name: placement-policy-gitops
-  apiGroup: apps.open-cluster-management.io
-  kind: PlacementRule
-subjects:
-  - name: policy-managed-gitops-operator
-    apiGroup: policy.open-cluster-management.io
-    kind: Policy
+

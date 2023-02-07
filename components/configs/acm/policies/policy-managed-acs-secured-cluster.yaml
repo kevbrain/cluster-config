@@ -1,8 +1,8 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-managed-acs-operator
-  namespace: openshift-gitops
+  name: policy-managed-acs-secured-cluster
+  namespace: policies
   annotations:
     policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, CA-2
@@ -26,63 +26,7 @@ spec:
                   name: stackrox
           remediationAction: inform
           severity: high
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: rhacs-operator-ns
-        spec:
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: v1
-                kind: Namespace
-                metadata:
-                  name: rhacs-operator
-          remediationAction: inform
-          severity: high
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: rhacs-operator-group
-        spec:
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: operators.coreos.com/v1
-                kind: OperatorGroup
-                metadata:
-                  name: rhacs-operator
-                  namespace: stackrox
-                spec:
-                  targetNamespaces:
-                    - rhacs-operator
-          remediationAction: inform
-          severity: high
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: acs-operator-subscription
-        spec:
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: operators.coreos.com/v1alpha1
-                kind: Subscription
-                metadata:
-                  name: rhacs-operator
-                  namespace: rhacs-operator
-                spec:
-                  channel: latest
-                  name: rhacs-operator
-                  installPlanApproval: Automatic
-                  source: redhat-operators
-                  sourceNamespace: openshift-marketplace
-                  startingCSV: rhacs-operator.v3.73.0
-          remediationAction: inform
-          severity: high
+
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -102,6 +46,7 @@ spec:
                   phase: Succeeded
           remediationAction: inform
           severity: high
+
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -120,6 +65,7 @@ spec:
                   acs-cluster-name: '{{ fromClusterClaim "gitops" }}'
           remediationAction: inform
           severity: high
+
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -149,6 +95,7 @@ spec:
                       selfHeal: true
           remediationAction: inform
           severity: high
+
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -257,33 +204,4 @@ spec:
           remediationAction: inform
           severity: high
   remediationAction: enforce
----
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
-metadata:
-  name: placement-policy-acs-securedcluster
-  namespace: openshift-gitops
-spec:
-  clusterConditions:
-    - status: "True"
-      type: ManagedClusterConditionAvailable
-  clusterSelector:
-    matchExpressions:
-      - key: acs
-        operator: In
-        values:
-        - secured
----
-apiVersion: policy.open-cluster-management.io/v1
-kind: PlacementBinding
-metadata:
-  name: policy-managed-acs-operator-placement-binding
-  namespace: openshift-gitops
-placementRef:
-  name: placement-policy-acs-securedcluster
-  apiGroup: apps.open-cluster-management.io
-  kind: PlacementRule
-subjects:
-  - name: policy-managed-acs-operator
-    apiGroup: policy.open-cluster-management.io
-    kind: Policy
+

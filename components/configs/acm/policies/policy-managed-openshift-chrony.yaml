@@ -1,0 +1,101 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-chrony-installation
+  namespace: policies
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: chrony-conf-worker-present
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: machineconfiguration.openshift.io/v1
+                kind: MachineConfig
+                metadata:
+                  labels:
+                    machineconfiguration.openshift.io/role: worker
+                  name: ntp-worker
+                spec:
+                  config:
+                    ignition:
+                      version: 3.2.0
+                    storage:
+                      files:
+                        - contents:
+                            compression: gzip
+                            source: data:;base64,H4sIAAAAAAAC/3TLwQ2DMAxG4Xum8ARxTCeCYKjVlFS/XSS2r1Rx4ML1e3qu2BUkJUvJQx7Ipi880sXl6jNsicWaEu8juNnE9Ym+Hfwv6T2+1EM/JLnQIyGqH1tNra+z4Xz6ej53/AsAAP//b88jdZUAAAA=
+                          mode: 420
+                          overwrite: true
+                          path: /etc/chrony.conf
+                  kernelArguments:
+                    - loglevel=7
+            - objectDefinition:
+                apiVersion: policy.open-cluster-management.io/v1
+                kind: ConfigurationPolicy
+                metadata:
+                  name: chrony-conf-master-present
+                spec:
+                  object-templates:
+                    - complianceType: musthave
+                      objectDefinition:
+                        apiVersion: machineconfiguration.openshift.io/v1
+                        kind: MachineConfig
+                        metadata:
+                          labels:
+                            machineconfiguration.openshift.io/role: master
+                          name: ntp-master
+                        spec:
+                          config:
+                            ignition:
+                              version: 3.2.0
+                            storage:
+                              files:
+                                - contents:
+                                    compression: gzip
+                                    source: data:;base64,H4sIAAAAAAAC/3TLwQ2DMAxG4Xum8ARxTCeCYKjVlFS/XSS2r1Rx4ML1e3qu2BUkJUvJQx7Ipi880sXl6jNsicWaEu8juNnE9Ym+Hfwv6T2+1EM/JLnQIyGqH1tNra+z4Xz6ej53/AsAAP//b88jdZUAAAA=
+                                  mode: 420
+                                  overwrite: true
+                                  path: /etc/chrony.conf
+                          kernelArguments:
+                            - loglevel=7
+                  remediationAction: inform
+                  severity: high
+            - objectDefinition:
+                apiVersion: policy.open-cluster-management.io/v1
+                kind: ConfigurationPolicy
+                metadata:
+                  name: chrony-conf-infra-present
+                spec:
+                  object-templates:
+                    - complianceType: musthave
+                      objectDefinition:
+                        apiVersion: machineconfiguration.openshift.io/v1
+                        kind: MachineConfig
+                        metadata:
+                          labels:
+                            machineconfiguration.openshift.io/role: infra
+                          name: ntp-infra
+                        spec:
+                          config:
+                            ignition:
+                              version: 3.2.0
+                            storage:
+                              files:
+                                - contents:
+                                    compression: gzip
+                                    source: data:;base64,H4sIAAAAAAAC/3TLwQ2DMAxG4Xum8ARxTCeCYKjVlFS/XSS2r1Rx4ML1e3qu2BUkJUvJQx7Ipi880sXl6jNsicWaEu8juNnE9Ym+Hfwv6T2+1EM/JLnQIyGqH1tNra+z4Xz6ej53/AsAAP//b88jdZUAAAA=
+                                  mode: 420
+                                  overwrite: true
+                                  path: /etc/chrony.conf
+                          kernelArguments:
+                            - loglevel=7
+  remediationAction: enforce
+

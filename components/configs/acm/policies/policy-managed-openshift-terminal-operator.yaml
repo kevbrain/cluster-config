@@ -2,7 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-managed-terminal-operator
-  namespace: openshift-gitops
+  namespace: policies
   annotations:
     policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, CA-2
@@ -54,16 +54,4 @@ spec:
           severity: high
   remediationAction: enforce
 ---
-apiVersion: policy.open-cluster-management.io/v1
-kind: PlacementBinding
-metadata:
-  name: policy-managed-web-terminal-operator-placement-binding
-  namespace: openshift-gitops
-placementRef:
-  name: placement-policy-gitops
-  apiGroup: apps.open-cluster-management.io
-  kind: PlacementRule
-subjects:
-  - name: policy-managed-terminal-operator
-    apiGroup: policy.open-cluster-management.io
-    kind: Policy
+

@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-managed-acs-operator-placement-binding
+  namespace: policies
+placementRef:
+  name: placement-policy-acs-operator
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: policy-managed-acs-operator
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

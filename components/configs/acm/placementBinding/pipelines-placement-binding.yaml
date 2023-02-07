@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-managed-pipeline-operator-placement-binding
+  namespace: policies
+placementRef:
+  name: dev-placement-policy
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: policy-managed-pipeline-operator
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

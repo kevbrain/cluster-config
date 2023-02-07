@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-patch-ingress-controler-placement-binding
+  namespace: policies
+placementRef:
+  name: infra-placement-policy
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: policy-patch-ingresscontroller
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
