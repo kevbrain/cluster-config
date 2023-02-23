@@ -1,0 +1,22 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: Patch
+metadata:
+  name: custom-logo
+  namespace: patch-operator
+spec:
+  patches:
+    custom-logo-operator-patch:
+      patchTemplate: |
+        spec:
+          customization:
+            customLogoFile:
+              key: logo
+              name: console-custom-logo
+            customProductName: LAB2 Console
+      patchType: application/merge-patch+json
+      targetObjectRef:
+        apiVersion: operator.openshift.io/v1
+        kind: Console
+        name: cluster
+  serviceAccountRef:
+    name: default
