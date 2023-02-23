@@ -10,7 +10,7 @@ spec:
         spec:
           customization:
             customLogoFile:
-              key: console-custom-logo.png
+              key: LOGO_ITS4U_Group.png
               name: console-custom-logo
             customProductName: LAB2 Console
       patchType: application/merge-patch+json
