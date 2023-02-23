@@ -12,7 +12,7 @@ spec:
             customLogoFile:
               key: logo
               name: console-custom-logo
-            customProductName: LAB2 Console
+            customProductName: LAB Console
       patchType: application/merge-patch+json
       targetObjectRef:
         apiVersion: operator.openshift.io/v1
