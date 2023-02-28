@@ -10,7 +10,7 @@ spec:
         spec:
           customization:
             customLogoFile:
-              key: logo
+              key: ocp-lab.its4u.eu.png
               name: console-custom-logo
             customProductName: LAB Console
       patchType: application/merge-patch+json
