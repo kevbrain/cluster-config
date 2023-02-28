@@ -1,0 +1,200 @@
+default:
+  app:
+    enabled: true
+    enableAutoSync: true
+    autoSyncPrune: false
+    project: cluster-config
+    destination:
+      namespace: openshift-gitops
+      server: https://kubernetes.default.svc
+    source:
+      repoURL: https://github.com/kevbrain/cluster-config.git
+      targetRevision: HEAD
+
+applications:
+
+ auth-branding:
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+   source:
+     path: clusters/its4u/apps/its4u-auth/base
+
+ banner:
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+   source:
+     path: clusters/its4u/apps/banner/base
+
+
+# amq-streams:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#   source:
+#     path: components/apps/amq-streams/base
+ 
+# alertmanager:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '11'
+#   destination:
+#     namespace: openshift-monitoring
+#   source:
+#     path: components/configs/alertmanager/base
+#
+# acs:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   source:
+#     path: clusters/local.home/apps/acs-operator/overlays/certificate
+#
+
+#
+# console-links:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '11'
+#   source:
+#     path: clusters/local.home/apps/consolelinks/overlays/default
+#
+# acs-tokens:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '61'
+#   source:
+#     path: clusters/local.home/apps/acs-tokens/overlays/endpoint
+#
+# authentication:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '4'
+#   destination:
+#     namespace: openshift-config
+#   source:
+#     path: components/configs/oauth/overlays/google-with-matrix
+#
+# cert-manager-operator:
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "2"
+#   destination:
+#     namespace: openshift-cert-manager-operator
+#   source:
+#     path: components/apps/cert-manager-operator/aggregate/overlays/letsencrypt
+#
+# certificates:
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "3"
+#   destination:
+#     namespace: openshift-cert-manager
+#   source:
+#     path: clusters/local.home/apps/cluster-certs/overlays/home
+#
+# openshift-monitoring:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '11'
+#   source:
+#     path: clusters/local.home/apps/openshift-monitoring/base
+#
+# quay-registry:
+#   # leave disabled unless needed for demo
+#   enabled: false
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   source:
+#     path: clusters/local.home/apps/quay-registry-operator/overlays/qnap
+#
+# sso:
+#   # Leave disabled unless needed for demo
+#   enabled: false
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   destination:
+#     namespace: sso
+#   source:
+#     path: clusters/local.home/apps/sso/overlays/default
+#
+# cost-management:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   source:
+#     path: clusters/local.home/apps/cost-management-operator/overlays/default
+#
+# lokistack:
+#   enabled: false
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   source:
+#     path: clusters/local.home/apps/lokistack/overlays/qnap
+#   syncPolicyRetry:
+#     limit: 5
+#     backoff:
+#       duration: 5s
+#       factor: 2
+#       maxDuration: 3m
+#
+  # kyverno:
+  #   annotations:
+  #     argocd.argoproj.io/compare-options: IgnoreExtraneous
+  #     argocd.argoproj.io/sync-wave: '21'
+  #   destination:
+  #     namespace: kyverno
+  #   source:
+  #     path: components/apps/kyverno/overlays/policies
+  #   syncPolicyRetry:
+  #     limit: 5
+  #     backoff:
+  #       duration: 5s
+  #       factor: 2
+  #       maxDuration: 3m
+  #   syncOptions:
+  #     - Replace=true
+  #   extraFields: |
+  #     ignoreDifferences:
+  #       - group: kyverno.io
+  #         kind: ClusterPolicy
+  #         jsonPointers:
+  #         - /spec/rules
+  #       - group: kyverno.io
+  #         kind: Policy
+  #         jsonPointers:
+  #         - /spec/rules
+
+  # kyverno-acm:
+  #   annotations:
+  #     argocd.argoproj.io/compare-options: IgnoreExtraneous
+  #     argocd.argoproj.io/sync-wave: '21'
+  #   destination:
+  #     namespace: acm-policies
+  #   source:
+  #     path: components/apps/kyverno-acm/base
+
+
+#
+# node-config:
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '99'
+#   source:
+#     path: clusters/local.home/apps/node-config/base
+#
+## Tenants
+# product-catalog-root:
+#   project: cluster-config
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '51'
+#   source:
+#     path: tenants/product-catalog/argocd/root/base
+
+  # demo-root:
+  #   project: cluster-config
+  #   annotations:
+  #     argocd.argoproj.io/compare-options: IgnoreExtraneous
+  #     argocd.argoproj.io/sync-wave: '51'
+  #   source:
+  #     path: tenants/demo/argocd/root/base
