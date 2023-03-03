@@ -34,13 +34,13 @@ projects:
 
 applications:
 
- dev-tools:
-   project: cluster-config
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-     argocd.argoproj.io/sync-wave: '21'
-   source:
-     path: components/apps/dev-tools/overlays/default
+# dev-tools:
+#   project: cluster-config
+#   annotations:
+#     argocd.argoproj.io/compare-options: IgnoreExtraneous
+#     argocd.argoproj.io/sync-wave: '21'
+#   source:
+#     path: components/apps/dev-tools/overlays/default
 
 
 
