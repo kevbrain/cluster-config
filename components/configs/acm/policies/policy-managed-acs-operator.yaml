@@ -40,7 +40,6 @@ spec:
                 metadata:
                   generateName: rhacs-operator-
                   namespace: rhacs-operator
-'
           remediationAction: inform
           severity: high
     - objectDefinition:
