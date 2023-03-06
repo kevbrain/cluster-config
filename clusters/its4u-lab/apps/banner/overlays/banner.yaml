@@ -1,9 +1,8 @@
 apiVersion: console.openshift.io/v1
 kind: ConsoleNotification
 metadata:
-  name: home-banner
+  name: banner
 spec:
-  text: "ITS4U - lab2"
-  location: BannerTop
+  text: "ITS4U - lab"
   color: '#fff'
-  backgroundColor: '#B40404'
+  backgroundColor: '#0088ce'
