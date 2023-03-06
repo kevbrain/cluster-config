@@ -23,7 +23,7 @@ applications:
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
    source:
-     path: clusters/its4u/apps/banner/base
+     path: clusters/its4u/apps/banner/overlays
 
 
 # amq-streams:
