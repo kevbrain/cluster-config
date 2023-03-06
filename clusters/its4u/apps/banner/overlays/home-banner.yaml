@@ -4,4 +4,4 @@ metadata:
   name: home-banner
 spec:
   text: "ITS4U - OCP"
-  backgroundColor: '#FFBF00'
+  backgroundColor: '#00FF00'
