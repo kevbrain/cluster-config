@@ -23,7 +23,7 @@ spec:
                   namespace: patch-operator
                 spec:
                   patches:
-                    imageregistry-config-patch:
+                    imageregistry-config-router-patch:
                       patchTemplate: |
                         spec:
                           nodeSelector: 
