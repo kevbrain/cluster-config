@@ -36,7 +36,7 @@ applications:
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
    source:
-     path: components/configs/acm
+     path: components/configs/acm/base
 
 # alertmanager:
 #   annotations:
