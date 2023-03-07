@@ -28,13 +28,13 @@ spec:
                         spec:
                           nodeSelector: 
                             node-role.kubernetes.io/infra: ""
-                        tolerations:
-                        - effect: NoSchedule
-                          key: node-role.kubernetes.io/infra
-                          value: reserved
-                        - effect: NoExecute
-                          key: node-role.kubernetes.io/infra
-                          value: reserved
+                          tolerations:
+                          - effect: NoSchedule
+                            key: node-role.kubernetes.io/infra
+                            value: reserved
+                          - effect: NoExecute
+                            key: node-role.kubernetes.io/infra
+                            value: reserved
                       patchType: application/merge-patch+json
                       targetObjectRef:
                         apiVersion: imageregistry.operator.openshift.io/v1
