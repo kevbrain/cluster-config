@@ -1,0 +1,44 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-patch-imageregistry-move-to-infra
+  namespace: policies
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-imageregistry-move-to-infra
+        spec:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: redhatcop.redhat.io/v1alpha1
+                kind: Patch
+                metadata:
+                  name: imageregistry-patch-move-to-infra
+                  namespace: patch-operator
+                spec:
+                  patches:
+                    imageregistry-config-patch:
+                      patchTemplate: |
+                        spec:
+                          nodeSelector: 
+                            node-role.kubernetes.io/infra: ""
+                        tolerations:
+                        - effect: NoSchedule
+                          key: node-role.kubernetes.io/infra
+                          value: reserved
+                        - effect: NoExecute
+                          key: node-role.kubernetes.io/infra
+                          value: reserved
+                      patchType: application/merge-patch+json
+                      targetObjectRef:
+                        apiVersion: imageregistry.operator.openshift.io/v1
+                        kind: Config
+                        name: cluster
+  remediationAction: enforce
+

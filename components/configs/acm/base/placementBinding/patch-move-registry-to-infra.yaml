@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: placement-patch-imageregistry-move-to-infra
+  namespace: policies
+placementRef:
+  name: infra-placement-policy
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: patch-imageregistry-move-to-infra
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
