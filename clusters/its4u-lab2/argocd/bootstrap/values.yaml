@@ -32,6 +32,12 @@ applications:
    source:
      path: components/apps/amq-streams/base
  
+ acm-policies:
+   annotations:
+     argocd.argoproj.io/compare-options: IgnoreExtraneous
+   source:
+     path: components/configs/acm
+
 # alertmanager:
 #   annotations:
 #     argocd.argoproj.io/compare-options: IgnoreExtraneous
