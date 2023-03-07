@@ -30,7 +30,7 @@ spec:
                   resources:
                     requests:
                       storage: 100Gi
-                  storageClassName: ocs-storagecluster-ceph-rbd
+                  storageClassName: ocs-storagecluster-cephfs
                   volumeMode: Filesystem
             - complianceType: musthave
               objectDefinition:
