@@ -19,6 +19,23 @@ spec:
               objectDefinition:
                 apiVersion: redhatcop.redhat.io/v1alpha1
                 kind: Patch
+                kind: PersistentVolumeClaim
+                apiVersion: v1
+                metadata:
+                  name: pvc-image-registry-storage
+                  namespace: openshift-image-registry
+                spec:
+                  accessModes:
+                    - ReadWriteMany
+                  resources:
+                    requests:
+                      storage: 100Gi
+                  storageClassName: ocs-storagecluster-ceph-rbd
+                  volumeMode: Filesystem
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: redhatcop.redhat.io/v1alpha1
+                kind: Patch
                 metadata:
                   name: imageregistry-patch
                   namespace: patch-operator
@@ -32,7 +49,7 @@ spec:
                           storage:
                             managementState: Managed
                             pvc:
-                              claim:
+                              claim: pvc-image-registry-storage
                           replicas: 3
                       patchType: application/merge-patch+json
                       targetObjectRef:
