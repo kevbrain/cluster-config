@@ -8,6 +8,6 @@ placementRef:
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:
-  - name: patch-imageregistry-move-to-infra
+  - name: policy-patch-imageregistry
     apiGroup: policy.open-cluster-management.io
     kind: Policy
