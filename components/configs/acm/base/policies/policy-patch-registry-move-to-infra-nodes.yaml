@@ -32,10 +32,10 @@ spec:
                           tolerations:
                           - effect: NoSchedule
                             key: node-role.kubernetes.io/infra
-                            value: reserved
+                            value: ''
                           - effect: NoExecute
                             key: node-role.kubernetes.io/infra
-                            value: reserved
+                            value: ''
                       patchType: application/merge-patch+json
                       targetObjectRef:
                         apiVersion: imageregistry.operator.openshift.io/v1
