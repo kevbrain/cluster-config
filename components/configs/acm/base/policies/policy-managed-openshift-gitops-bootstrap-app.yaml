@@ -112,6 +112,10 @@ spec:
                           server:
                             insecure: true
                           kustomizeBuildOptions: '--enable-helm'
+                          rbac:
+                            policy: |
+                              g, system:cluster-admins, role:admin
+                              g, OCP_Admins, role:admin
                       patchType: application/merge-patch+json
                       targetObjectRef:
                         apiVersion: argoproj.io/v1alpha1
