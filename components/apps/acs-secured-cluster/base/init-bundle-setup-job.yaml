@@ -25,7 +25,7 @@ spec:
               cd $HOME              
               curl -O https://mirror.openshift.com/pub/rhacs/assets/latest/bin/Linux/roxctl
               chmod +x roxctl			  
-              acs_credentials="sxww5LqdPQTq5wZNrDa2a8oRT"
+              acs_credentials="mNxoFV53YnurkhFyyXpxjzhVQ"
               export ROX_CENTRAL_ADDRESS="central-rhacs-operator.apps.ocp-lab2.its4u.eu:443"   
               secured_cluster_name=$(oc -n stackrox get secret acs-secured-cluster-name-secret -o go-template='{{index .data "acs-cluster-name" | base64decode}}')           
               export ROX_API_TOKEN=$(curl -sk -u "admin:$acs_credentials" "https://$ROX_CENTRAL_ADDRESS/v1/apitokens/generate" -d '{"name":"token name", "role": "Admin"}' | jq -r '.token')
