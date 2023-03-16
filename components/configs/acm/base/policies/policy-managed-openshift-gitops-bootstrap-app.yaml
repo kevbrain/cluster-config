@@ -107,6 +107,8 @@ spec:
                 spec:
                   patches:
                     argocd-operator-patch:
+                  patches:
+                    argocd-operator-patch:
                       patchTemplate: |
                         spec:
                           server:
