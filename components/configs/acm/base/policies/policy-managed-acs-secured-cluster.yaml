@@ -127,10 +127,7 @@ spec:
                     listenOnCreates: true
                     tolerations:
                       - effect: NoSchedule
-                        key: infra
-                        value: reserved
-                      - effect: NoExecute
-                        key: infra
+                        key: node-role.kubernetes.io/infra
                         value: reserved
                     timeoutSeconds: 20
                     listenOnEvents: true
@@ -168,21 +165,15 @@ spec:
                         replicas: 3
                       tolerations:
                         - effect: NoSchedule
-                          key: infra
-                          value: 
-                        - effect: NoExecute
-                          key: infra
-                          value: 
+                          key: node-role.kubernetes.io/infra
+                          value: ''
                     db:
                       nodeSelector:
                         node-role.kubernetes.io/infra: ''
                       tolerations:
                         - effect: NoExecute
-                          key: infra
-                          value: 
-                        - effect: NoSchedule
-                          key: infra
-                          value: 
+                          key: node-role.kubernetes.io/infra
+                          value: ''
                     scannerComponent: AutoSense
                   sensor:
                     nodeSelector:
@@ -196,11 +187,8 @@ spec:
                         memory: 1Gi
                     tolerations:
                       - effect: NoSchedule
-                        key: infra
-                        value: 
-                      - effect: NoExecute
-                        key: infra
-                        value: 
+                        key: node-role.kubernetes.io/infra
+                        value: ''
           remediationAction: inform
           severity: high
   remediationAction: enforce
