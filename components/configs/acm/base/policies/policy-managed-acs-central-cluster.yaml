@@ -15,7 +15,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: stackrox-operator-ns
+          name: stackrox-operator-ns-central
         spec:
           object-templates:
             - complianceType: musthave
@@ -31,7 +31,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: acs-operator-status
+          name: acs-operator-central-status
         spec:
           object-templates:
             - complianceType: musthave
