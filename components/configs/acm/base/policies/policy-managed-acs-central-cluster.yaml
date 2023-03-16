@@ -1,0 +1,114 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-managed-acs-central-cluster
+  namespace: policies
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, CA-2
+      Security Assessments, CA-7 Continuous Monitoring
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: stackrox-operator-ns
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: stackrox
+          remediationAction: inform
+          severity: high
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acs-operator-status
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: ClusterServiceVersion
+                metadata:
+                  namespace: rhacs-operator
+                spec:
+                  displayName: Advanced Cluster Security for Kubernetes
+                status:
+                  phase: Succeeded
+          remediationAction: inform
+          severity: high
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acs-central-cluster-service-present
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: platform.stackrox.io/v1alpha1
+                kind: Central
+                metadata:
+                  name: stackrox-central-services
+                  namespace: stackrox
+                spec:
+                  central:
+                    db:
+                      isEnabled: Default
+                      nodeSelector:
+                        node-role.kubernetes.io/infra: ''
+                      persistence:
+                        persistentVolumeClaim:
+                          claimName: central-db
+                      tolerations:
+                        - effect: NoSchedule
+                          key: node-role.kubernetes.io/infra
+                          value: ''
+                    exposure:
+                      loadBalancer:
+                        enabled: false
+                        port: 443
+                      nodePort:
+                        enabled: false
+                      route:
+                        enabled: true
+                    nodeSelector:
+                      node-role.kubernetes.io/infra: ''
+                    persistence:
+                      persistentVolumeClaim:
+                        claimName: stackrox-db
+                        storageClassName: ocs-storagecluster-cephfs
+                    tolerations:
+                      - effect: NoSchedule
+                        key: node-role.kubernetes.io/infra
+                        value: ''
+                  egress:
+                    connectivityPolicy: Online
+                  scanner:
+                    analyzer:
+                      nodeSelector:
+                        node-role.kubernetes.io/infra: ''
+                      scaling:
+                        autoScaling: Enabled
+                        maxReplicas: 5
+                        minReplicas: 2
+                        replicas: 3
+                      tolerations:
+                        - effect: NoSchedule
+                          key: node-role.kubernetes.io/infra
+                          value: ''
+                    scannerComponent: Enabled
+          remediationAction: inform
+          severity: high
+  remediationAction: enforce
+
