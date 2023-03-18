@@ -12,4 +12,4 @@ spec:
       - key: acs-central
         operator: In
         values:
-        - central
+        - 'true'
