@@ -230,6 +230,30 @@ spec:
                         key: node-role.kubernetes.io/infra
                         value: ''
           remediationAction: inform
+          severity: highµ
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acs-operator-secured-consolelink
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: console.openshift.io/v1
+                kind: ConsoleLink
+                metadata:
+                  name: acs-console
+                spec:
+                  applicationMenu:
+                    imageURL: >-
+                      https://console-openshift-console.apps.ocp-lab2.its4u.eu/static/assets/redhat.svg
+                    section: Red Hat Applications
+                  href: 'https://central-rhacs-operator.apps.ocp-lab2.its4u.eu'
+                  location: ApplicationMenu
+                  text: Advanced CLuster Security
+          remediationAction: inform
           severity: high
   remediationAction: enforce
 
