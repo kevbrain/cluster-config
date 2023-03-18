@@ -11,9 +11,8 @@ metadata:
 spec:
   disabled: false
   policy-templates:
+
     - objectDefinition:
-
-
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
@@ -105,6 +104,30 @@ spec:
                   name: acs-central-password
                 stringData:
                   password: its4uITS4U2023
+          remediationAction: inform
+          severity: high
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acs-operator-central-consoleLink
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: console.openshift.io/v1
+                kind: ConsoleLink
+                metadata:
+                  name: acs-console
+                spec:
+                  applicationMenu:
+                    imageURL: >-
+                      https://console-openshift-console.apps.ocp-lab2.its4u.eu/static/assets/redhat.svg
+                    section: Red Hat Applications
+                  href: 'https://central-rhacs-operator.apps.ocp-lab2.its4u.eu/'
+                  location: ApplicationMenu
+                  text: Advanced CLuster Security
           remediationAction: inform
           severity: high
 
