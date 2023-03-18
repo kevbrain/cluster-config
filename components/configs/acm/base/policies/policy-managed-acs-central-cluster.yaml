@@ -89,7 +89,7 @@ spec:
           remediationAction: inform
           severity: high
 
-      - objectDefinition:
+    - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
@@ -103,9 +103,8 @@ spec:
                 metadata:
                   namespace: rhacs-operator
                   name: acs-central-password
-                data:
-                  password: aXRzNHVJVFM0VTIwMjM=
-                type: Opaque
+                stringData:
+                  password: its4uITS4U2023
           remediationAction: inform
           severity: high
 
