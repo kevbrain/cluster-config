@@ -12,10 +12,12 @@ spec:
   disabled: false
   policy-templates:
     - objectDefinition:
+
+
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: stackrox-operator-ns-central
+          name: acm-central-operator-ns-central
         spec:
           object-templates:
             - complianceType: musthave
@@ -24,6 +26,46 @@ spec:
                 kind: Namespace
                 metadata:
                   name: rhacs-operator
+          remediationAction: inform
+          severity: high
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acm-central-rhacs-operator-group
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1
+                kind: OperatorGroup
+                metadata:
+                  generateName: rhacs-operator-
+                  namespace: rhacs-operator
+          remediationAction: inform
+          severity: high
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acm-central-acs-operator-subscription
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: rhacs-operator
+                  namespace: rhacs-operator
+                spec:
+                  channel: latest
+                  name: rhacs-operator
+                  installPlanApproval: Automatic
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
           remediationAction: inform
           severity: high
 
