@@ -215,7 +215,7 @@ spec:
                         key: node-role.kubernetes.io/infra
                         value: ''
           remediationAction: inform
-          severity: highµ
+          severity: high
 
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
