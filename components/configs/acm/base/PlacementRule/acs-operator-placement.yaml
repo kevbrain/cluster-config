@@ -12,3 +12,7 @@ spec:
       - key: acs
         operator: Exists
         values: []
+      - key: acs-central
+        operator: In
+        values:
+        - 'true'
