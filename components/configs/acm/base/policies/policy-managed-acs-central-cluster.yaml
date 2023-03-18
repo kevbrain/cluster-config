@@ -23,7 +23,7 @@ spec:
                 apiVersion: v1
                 kind: Namespace
                 metadata:
-                  name: stackrox
+                  name: rhacs-operator
           remediationAction: inform
           severity: high
 
@@ -60,7 +60,7 @@ spec:
                 kind: Central
                 metadata:
                   name: stackrox-central-services
-                  namespace: stackrox
+                  namespace: rhacs-operator
                 spec:
                   central:
                     db:
