@@ -2,20 +2,20 @@
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  namespace: stackrox
+  namespace: rhacs-operator
   name: argocd
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: argocd-edit
-  namespace: stackrox
+  namespace: rhacs-operator
   annotations:
     argocd.argoproj.io/sync-wave: "1"   
 subjects:
   - kind: ServiceAccount
     name: argocd
-    namespace: stackrox
+    namespace: rhacs-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

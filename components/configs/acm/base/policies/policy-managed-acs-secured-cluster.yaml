@@ -11,21 +11,6 @@ metadata:
 spec:
   disabled: false
   policy-templates:
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: stackrox-operator-secured-ns
-        spec:
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: v1
-                kind: Namespace
-                metadata:
-                  name: stackrox
-          remediationAction: inform
-          severity: high
 
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
@@ -100,7 +85,7 @@ spec:
                 kind: Secret
                 metadata:
                   name: acs-secured-cluster-name-secret
-                  namespace: stackrox
+                  namespace: rhacs-operator
                 stringData:
                   acs-cluster-name: '{{ fromClusterClaim "gitops" }}'
           remediationAction: inform
@@ -149,7 +134,7 @@ spec:
                 kind: SecuredCluster
                 metadata:
                   name: stackrox-secured-cluster-services
-                  namespace: stackrox
+                  namespace: rhacs-operator
                 spec:
                   admissionControl:
                     nodeSelector:
