@@ -125,7 +125,7 @@ spec:
                     imageURL: >-
                       https://console-openshift-console.apps.ocp-lab2.its4u.eu/static/assets/redhat.svg
                     section: Red Hat Applications
-                  href: 'https://central-rhacs-operator.apps.ocp-lab2.its4u.eu/'
+                  href: 'https://central-rhacs-operator.apps.ocp-lab2.its4u.eu'
                   location: ApplicationMenu
                   text: Advanced CLuster Security
           remediationAction: inform
