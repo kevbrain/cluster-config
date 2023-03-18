@@ -89,6 +89,26 @@ spec:
           remediationAction: inform
           severity: high
 
+      - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: acs-operator-central-password
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  namespace: rhacs-operator
+                  name: acs-central-password
+                data:
+                  password: aXRzNHVJVFM0VTIwMjM=
+                type: Opaque
+          remediationAction: inform
+          severity: high
+
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -105,6 +125,8 @@ spec:
                   namespace: rhacs-operator
                 spec:
                   central:
+                    adminPasswordSecret:
+                      name: acs-central-password
                     db:
                       isEnabled: Default
                       nodeSelector:
