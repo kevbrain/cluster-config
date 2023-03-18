@@ -111,7 +111,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: acs-operator-central-consoleLink
+          name: acs-operator-central-consolelink
         spec:
           object-templates:
             - complianceType: musthave
