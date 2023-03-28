@@ -102,8 +102,8 @@ spec:
                 metadata:
                   namespace: rhacs-operator
                   name: acs-central-password
-                stringData:
-                  password: its4uITS4U2023
+                data:
+                  password: aXRzNHVJVFM0VTIwMjM=
           remediationAction: inform
           severity: high
 

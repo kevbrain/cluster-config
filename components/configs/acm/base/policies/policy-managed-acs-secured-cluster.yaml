@@ -102,8 +102,8 @@ spec:
                 metadata:
                   name: acs-secured-cluster-name-secret
                   namespace: rhacs-operator
-                stringData:
-                  acs-cluster-name: '{{ fromClusterClaim "gitops" }}'
+                data:
+                  acs-cluster-name: '{{ fromClusterClaim "gitops" | base64enc}}'
           remediationAction: inform
           severity: high
 
