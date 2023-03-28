@@ -61,7 +61,7 @@ spec:
                 kind: OperatorGroup
                 metadata:
                   generateName: patch-operator-
-                  name: patch-operator
+                  name: patch-operator-8nm99
                   namespace: patch-operator
                 spec:
           remediationAction: inform
