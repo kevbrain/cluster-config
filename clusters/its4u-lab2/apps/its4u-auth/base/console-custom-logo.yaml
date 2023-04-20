@@ -4,7 +4,6 @@ metadata:
   name: console-custom-logo
   namespace: openshift-config
   annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
     argocd.argoproj.io/sync-options: Validate=false
 binaryData:
   LOGO_ITS4U_Group.png: >-
