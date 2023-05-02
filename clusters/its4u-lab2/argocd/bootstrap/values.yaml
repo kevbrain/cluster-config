@@ -28,11 +28,7 @@ applications:
      path: clusters/its4u-lab2/apps/banner/overlays
 
 
- amq-streams:
-   annotations:
-     argocd.argoproj.io/compare-options: IgnoreExtraneous
-   source:
-     path: components/apps/amq-streams/base
+
  
  acm-policies:
    annotations:
