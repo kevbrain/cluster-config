@@ -114,10 +114,12 @@ spec:
                           server:
                             insecure: true
                           kustomizeBuildOptions: '--enable-helm'
-                          dex:
-                            openShiftOAuth: true
-                            groups:
-                              - default
+                          sso:
+                            provider: dex
+                            dex:
+                              openShiftOAuth: true
+                              groups:
+                                - default
                           rbac:
                             policy: |
                               g, system:cluster-admins, role:admin
