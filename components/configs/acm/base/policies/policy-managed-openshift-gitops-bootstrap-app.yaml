@@ -119,7 +119,7 @@ spec:
                             dex:
                               openShiftOAuth: true
                               groups:
-                                - default
+                                - OCP_Admins
                           rbac:
                             policy: |
                               g, system:cluster-admins, role:admin
