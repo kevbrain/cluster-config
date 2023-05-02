@@ -14,7 +14,7 @@ default:
 applications:
 
  auth-branding:
-   enableAutoSync: true
+   enableAutoSync: false
    autoSyncPrune: true
    annotations:
      argocd.argoproj.io/compare-options: IgnoreExtraneous
