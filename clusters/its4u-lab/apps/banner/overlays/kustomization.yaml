@@ -4,4 +4,4 @@ kind: Kustomization
 bases:
 - ../../../../../components/apps/banner/base
 patchesStrategicMerge:
-- banner.yaml
+- home-banner.yaml
