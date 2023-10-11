@@ -4,7 +4,7 @@ metadata:
   name: policy-managed-web-terminal-operator-placement-binding
   namespace: policies
 placementRef:
-  name: placement-policy-web-terminal
+  name: placement-policy-all-envs
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:
