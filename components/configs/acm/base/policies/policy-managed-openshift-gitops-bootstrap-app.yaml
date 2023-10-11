@@ -65,7 +65,7 @@ spec:
                   namespace: openshift-operators
                 spec:
                   name: openshift-gitops-operator
-                  channel: stable
+                  channel: gitops-1.10
                   installPlanApproval: Automatic
                   source: redhat-operators
                   sourceNamespace: openshift-marketplace
