@@ -52,6 +52,6 @@ spec:
                   phase: Succeeded
           remediationAction: inform
           severity: high
-  remediationAction: enforce
+  remediationAction: inform
 ---
 
