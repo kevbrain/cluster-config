@@ -10,8 +10,7 @@ spec:
         spec:
           customization:
             customLogoFile:
-            
-              key: ocp.its4u.eu.svg
+              key: cluster-logo.svg
               name: console-custom-logo
             customProductName: OCP Console
       patchType: application/merge-patch+json
