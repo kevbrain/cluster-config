@@ -5,7 +5,6 @@ metadata:
   namespace: openshift-config
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
-binaryData:
 data:
   cluster-logo.svg: |
     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
