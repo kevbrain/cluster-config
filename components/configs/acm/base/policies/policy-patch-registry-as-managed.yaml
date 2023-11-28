@@ -6,7 +6,7 @@ metadata:
   annotations:
     policy.open-cluster-management.io/categories: CM Configuration Management, CA Security Assessment and Authorization
 spec:
-  disabled: false
+  disabled: true
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
