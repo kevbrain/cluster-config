@@ -4,7 +4,7 @@ metadata:
   name: policy-managed-patch-registry-placement-binding
   namespace: policies
 placementRef:
-  name: infra-placement-policy
+  name: placement-policy-all-envs
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:
