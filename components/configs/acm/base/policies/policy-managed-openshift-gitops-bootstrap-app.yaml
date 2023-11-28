@@ -154,8 +154,7 @@ spec:
                     repoURL: https://github.com/kevbrain/cluster-config.git
                     targetRevision: main
                     directory:
-                      recurse: true
-                      jsonnet: {}
+                      recurse: false
                   syncPolicy:
                     automated:
                       prune: false
