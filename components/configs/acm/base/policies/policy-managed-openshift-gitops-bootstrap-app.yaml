@@ -153,6 +153,9 @@ spec:
                     path: clusters/{{ fromClusterClaim "gitops" }}/argocd/bootstrap
                     repoURL: https://github.com/kevbrain/cluster-config.git
                     targetRevision: main
+                    directory:
+                      recurse: true
+                      jsonnet: {}
                   syncPolicy:
                     automated:
                       prune: false
